@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:quotes_app_unit_2/repositories/quotes_repository.dart';
 import 'package:quotes_app_unit_2/views/themes/typography.dart';
 import 'package:quotes_app_unit_2/views/widgets/icon_solid_light.dart';
 import 'package:quotes_app_unit_2/views/widgets/quote_card.dart';
+
+import 'quote_detail_page.dart';
 
 class QuotesPage extends ConsumerWidget {
   const QuotesPage({super.key});
@@ -21,6 +24,9 @@ class QuotesPage extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: IconSolidLight(
                   icon: PhosphorIcons.regular.magnifyingGlass,
+                  onTap: () {
+                    QuotesRepository().getRandomQuotes();
+                  },
                 ),
               ),
             ],
@@ -52,12 +58,27 @@ class QuotesPage extends ConsumerWidget {
                     bottom: 16,
                     top: index == 0 ? 100 : 0,
                   ),
-                  child: const QuotesCard(
-                    content:
-                        "The best way to get started is to quit talking and begin doing. The best way to get started is to quit talking and begin doing. The best way to get started is to quit talking and begin doing.",
-                    author: "author",
-                    authorAvatar: "assets/img_avatar.png",
-                    authorJob: "authorJob",
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const QuoteDetailPage(
+                            content:
+                                "The best way to get started is to quit talking and begin doing. The best way to get started is to quit talking and begin doing. The best way to get started is to quit talking and begin doing.",
+                            author: "Rick Riordan",
+                            authorAvatar: "assets/img_avatar.png",
+                            authorJob: "Co-Founder of The Walt Disney Company",
+                          ),
+                        ),
+                      );
+                    },
+                    child: const QuotesCard(
+                      content:
+                          "The best way to get started is to quit talking and begin doing. The best way to get started is to quit talking and begin doing. The best way to get started is to quit talking and begin doing.",
+                      author: "author",
+                      authorAvatar: "assets/img_avatar.png",
+                      authorJob: "authorJob",
+                    ),
                   ),
                 );
               },
