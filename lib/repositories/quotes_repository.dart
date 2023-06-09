@@ -12,12 +12,22 @@ class QuotesRepository {
     // send request to API
     final response = await http.get(Uri.parse(url + endpoint));
 
-    // check if response is successful
-    if (response.statusCode == 200) {
-      final dataJson = jsonDecode(response.body);
-      print(dataJson);
+    // check if error
+    if (response.statusCode != 200) {
+      throw "Ada error";
     }
 
-    return [];
+    // if success
+    List dataJson = jsonDecode(response.body);
+    print(dataJson);
+
+    List<QuoteApi> quotes = [];
+
+    for (var item in dataJson) {
+      QuoteApi quote = QuoteApi.fromJson(item);
+      quotes.add(quote);
+    }
+
+    return quotes;
   }
 }
