@@ -83,7 +83,7 @@ class QuotesPage extends ConsumerWidget {
                         },
                         child: QuotesCard(
                           content: quotesData[index].content ?? "",
-                          author: "author",
+                          author: quotesData[index].author ?? "author",
                           authorAvatar: "assets/img_avatar.png",
                           authorJob: "authorJob",
                         ),
